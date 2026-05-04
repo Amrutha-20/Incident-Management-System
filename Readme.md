@@ -5,22 +5,28 @@ A mission-critical, production-grade Incident Management System built to monitor
 ---
 
 ## Architecture Diagram
-Signal producers → POST /api/v1/signals
-                        ↓
-               [Rate Limiter (slowapi)]
-                        ↓
-              [Ring Buffer — in-memory]   ← never crashes on DB slowness
-                        ↓
-            [Worker Pool — 4 async tasks]
-               ↓             ↓
-      [Debounce Engine]   [Redis SETNX lock]
-        (Redis-backed)         ↓
-               ↓         1 Work Item per component/window
-        [MongoDB]  ← raw signals (audit log)
-        [PostgreSQL] ← Work Items + RCA (transactional)
-        [Redis]      ← dashboard hot-path cache
-        [InfluxDB]   ← timeseries / MTTR aggregations
-```
+flowchart TD
+    A[Signal Producers] --> B[POST /api/v1/signals]
+    B --> C[Rate Limiter (slowapi)]
+    C --> D[Ring Buffer (In-Memory)]
+
+    D --> E[Worker Pool (4 Async Tasks)]
+
+    E --> F[Debounce Engine (Redis-backed)]
+    E --> G[Redis SETNX Lock]
+
+    G --> H[Work Item per Component/Window]
+
+    F --> I[MongoDB (Raw Signals / Audit Log)]
+    H --> J[PostgreSQL (Work Items + RCA)]
+    H --> K[Redis (Hot Cache for Dashboard)]
+    H --> L[InfluxDB (Time-series / MTTR)]
+
+    style D fill:#e3f2fd
+    style E fill:#e8f5e9
+    style G fill:#fff3e0
+    style F fill:#f3e5f5
+
 
 ## Backpressure Strategy
 
