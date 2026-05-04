@@ -95,9 +95,9 @@ curl http://localhost:8000/health
 ```
 
 ### 4. Open the dashboard
-http://localhost:5173      ← React frontend
-http://localhost:8000/docs ← Swagger API docs
-http://localhost:8000/health ← Health check
+- http://localhost:5173      ← React frontend
+- http://localhost:8000/docs ← Swagger API docs
+- http://localhost:8000/health ← Health check
 
 ### 5. Seed failure scenario data
 
