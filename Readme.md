@@ -172,8 +172,7 @@ If 100 signals arrive for `CACHE_CLUSTER_01` within 10 seconds, only **1 Work It
 
 ## Observability
 
-- **Throughput metrics** printed to stdout every 5 seconds:
-[THROUGHPUT] signals/sec=245.3 | enqueued=12450 | dropped=0 | processed=12448 | buffer=24.9%
+- **Throughput metrics** printed to stdout every 5 seconds
 
 - **`/health` endpoint** returns real-time stats:
   - `signals_per_sec` — rolling 5-second window
