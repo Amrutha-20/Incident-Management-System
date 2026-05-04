@@ -5,6 +5,7 @@ A mission-critical, production-grade Incident Management System built to monitor
 ---
 
 ## Architecture Diagram
+```mermaid
 flowchart TD
     A[Signal Producers] --> B[POST /api/v1/signals]
     B --> C[Rate Limiter (slowapi)]
